@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram戦略設計書｜ゆうり｜愛犬を観て・診るドッグトレーナー</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    line-height: 1.85;
+    padding: 40px 20px;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #222;
+  }
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7eb8da, #b8d4e3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .header .sub {
+    color: #666;
+    font-size: 0.85rem;
+  }
+
+  /* TOC */
+  .toc {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+  .toc h2 {
+    font-size: 0.9rem;
+    color: #7eb8da;
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
+  }
+  .toc ol {
+    padding-left: 20px;
+    color: #999;
+    font-size: 0.88rem;
+  }
+  .toc ol li { padding: 3px 0; }
+  .toc ol li a { color: #b8d4e3; text-decoration: none; }
+  .toc ol li a:hover { text-decoration: underline; }
+
+  /* Section */
+  .section {
+    margin-bottom: 56px;
+  }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: #7eb8da;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .section h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  .section h3 {
+    font-size: 1.05rem;
+    color: #b8d4e3;
+    margin: 28px 0 12px;
+  }
+
+  /* Card */
+  .card {
+    background: #131313;
+    border: 1px solid #1e1e1e;
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+  }
+  .card:hover { border-color: #333; }
+  .card p { color: #bbb; font-size: 0.9rem; margin-bottom: 8px; }
+  .card strong { color: #e0e0e0; }
+
+  /* Persona Box */
+  .persona-box {
+    background: linear-gradient(135deg, rgba(126,184,218,0.06), rgba(126,184,218,0.02));
+    border: 1px solid rgba(126,184,218,0.15);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+  }
+  .persona-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .persona-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7eb8da, #4a8fb0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .persona-name { font-size: 1.1rem; font-weight: 700; color: #fff; }
+  .persona-name small { display: block; font-weight: 400; color: #888; font-size: 0.8rem; }
+
+  /* Quote */
+  .inner-voice {
+    background: #0f0f0f;
+    border-left: 3px solid #7eb8da;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 0.9rem;
+    color: #aaa;
+    font-style: italic;
+    line-height: 2;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 0.85rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    background: #161616;
+    color: #7eb8da;
+    font-weight: 600;
+    border-bottom: 2px solid #222;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #1a1a1a;
+    color: #bbb;
+  }
+  tr:hover td { background: #141414; }
+
+  /* Flow */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 140px;
+    background: #131313;
+    border: 1px solid #1e1e1e;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+  }
+  .flow-step:first-child { border-radius: 8px 0 0 8px; }
+  .flow-step:last-child { border-radius: 0 8px 8px 0; }
+  .flow-step .num {
+    display: block;
+    font-size: 0.7rem;
+    color: #7eb8da;
+    margin-bottom: 4px;
+  }
+  .flow-step .label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e0e0e0;
+  }
+  .flow-step .desc {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 4px;
+  }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    color: #7eb8da;
+    font-size: 1.2rem;
+    padding: 0 2px;
+  }
+
+  /* Post Example */
+  .post-example {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+  .post-header {
+    padding: 14px 20px;
+    background: #161616;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .post-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+  }
+  .tag-fear { background: rgba(231,111,81,0.15); color: #e76f51; }
+  .tag-checklist { background: rgba(126,184,218,0.15); color: #7eb8da; }
+  .tag-translate { background: rgba(168,213,186,0.15); color: #a8d5ba; }
+  .tag-steps { background: rgba(255,209,102,0.15); color: #ffd166; }
+  .tag-shock { background: rgba(239,71,111,0.15); color: #ef476f; }
+  .tag-family { background: rgba(188,170,218,0.15); color: #bcaada; }
+  .tag-empathy { background: rgba(255,183,178,0.15); color: #ffb7b2; }
+  .post-type {
+    font-size: 0.75rem;
+    color: #666;
+  }
+  .post-body {
+    padding: 20px;
+  }
+  .post-hook {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .post-script {
+    font-size: 0.85rem;
+    color: #999;
+    line-height: 2;
+  }
+  .post-script .sec {
+    color: #555;
+    font-size: 0.75rem;
+    margin-right: 6px;
+  }
+  .post-cta {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #1e1e1e;
+    font-size: 0.85rem;
+    color: #7eb8da;
+    font-weight: 600;
+  }
+  .post-save-reason {
+    padding: 12px 20px 16px;
+    background: #0d0d0d;
+    font-size: 0.78rem;
+    color: #666;
+    border-top: 1px solid #1a1a1a;
+  }
+  .post-save-reason span { color: #7eb8da; }
+
+  /* Highlight */
+  .highlight {
+    background: rgba(126,184,218,0.08);
+    border: 1px solid rgba(126,184,218,0.12);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-size: 0.92rem;
+    color: #b8d4e3;
+  }
+
+  /* Comparison */
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .vs-col {
+    background: #131313;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #1e1e1e;
+  }
+  .vs-col h4 {
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+  }
+  .vs-col.ng h4 { color: #e76f51; }
+  .vs-col.ok h4 { color: #a8d5ba; }
+  .vs-col ul {
+    list-style: none;
+    padding: 0;
+  }
+  .vs-col ul li {
+    font-size: 0.84rem;
+    color: #999;
+    padding: 3px 0;
+  }
+
+  /* Summary Grid */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .summary-item {
+    background: #131313;
+    border: 1px solid #1e1e1e;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .summary-item .key {
+    font-size: 0.75rem;
+    color: #7eb8da;
+    margin-bottom: 4px;
+  }
+  .summary-item .val {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e0e0e0;
+  }
+
+  .footer {
+    text-align: center;
+    color: #444;
+    font-size: 0.75rem;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid #1a1a1a;
+  }
+
+  @media (max-width: 640px) {
+    .header h1 { font-size: 1.5rem; }
+    .vs-grid { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-step { border-radius: 8px !important; }
+    .flow-arrow { justify-content: center; transform: rotate(90deg); padding: 4px 0; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <h1>Instagram 戦略設計書</h1>
+  <p class="sub">ゆうり｜愛犬を観て・診るドッグトレーナー — 2026.04.11</p>
+</div>
+
+<!-- ===== TOC ===== -->
+<div class="toc">
+  <h2>CONTENTS</h2>
+  <ol>
+    <li><a href="#sec1">ペルソナ設計</a></li>
+    <li><a href="#sec2">ポジショニング ─ 競合との境界線</a></li>
+    <li><a href="#sec3">コアメッセージ ─ 行動分析で飼い主を変える</a></li>
+    <li><a href="#sec4">共感設計 ─ よしこさんの孤独に触れる</a></li>
+    <li><a href="#sec5">保存される7カテゴリ ─ 投稿設計</a></li>
+    <li><a href="#sec6">投稿例文 14本（フック＋構成付き）</a></li>
+    <li><a href="#sec7">伝え方の鉄則 ─ 翻訳テーブル</a></li>
+  </ol>
+</div>
+
+<!-- ===== 1. PERSONA ===== -->
+<div class="section" id="sec1">
+  <p class="section-label">Section 01</p>
+  <h2>ペルソナ設計</h2>
+
+  <div class="persona-box">
+    <div class="persona-header">
+      <div class="persona-avatar">👩</div>
+      <div>
+        <div class="persona-name">よしこさん（48歳）<small>パート勤務 / 夫・大学生の子ども1人・犬1頭（2歳）</small></div>
+      </div>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-item"><div class="key">飼育歴</div><div class="val">2年目</div></div>
+      <div class="summary-item"><div class="key">犬種</div><div class="val">問わない</div></div>
+      <div class="summary-item"><div class="key">年代</div><div class="val">40〜50代主婦</div></div>
+      <div class="summary-item"><div class="key">経験値</div><div class="val">中級者（間違った知識）</div></div>
+    </div>
+  </div>
+
+  <h3>表面の悩み</h3>
+  <div class="card">
+    <p>吠える・噛む・引っ張る・飛びつくが直らない。色々やっているのにうまくいかない。</p>
+  </div>
+
+  <h3>根っこの問題（本人は気づいていない）</h3>
+  <table>
+    <tr><th>よしこさんの認識</th><th>実際に起きていること</th></tr>
+    <tr><td>「この犬は性格が悪い」</td><td>オペラント条件付けにより形成された行動。性格ではなく、飼い主の反応で強化・維持されている</td></tr>
+    <tr><td>「舐められている」</td><td>「舐められている」は反証不可能であり、循環論法に陥っている（言うことを聞かない→舐められている→だから言うことを聞かない）。行動の原因説明になっていない</td></tr>
+    <tr><td>「懐いてくれない」「信頼されてない」</td><td>飼い主も一緒に変わっていく必要がある。犬だけを変えようとしても、飼い主の行動が変わらなければ同じ環境が維持され、行動は変わらない</td></tr>
+    <tr><td>「犬を直してほしい」「私はちゃんとやっている」</td><td>やっていることは意味がない・間違っている・逆効果である。良かれと思ってやっている行動の多くが、問題行動を強化・悪化させている</td></tr>
+  </table>
+
+  <h3>よしこさんの1日</h3>
+  <table>
+    <tr><th>時間</th><th>行動</th><th>間違っているポイント</th></tr>
+    <tr><td>朝・散歩</td><td>引っ張られて「コラ！」と叱る</td><td>叱る＝注目＝強化になっている</td></tr>
+    <tr><td>昼・在宅</td><td>吠えたら「どうしたの？」と駆け寄る</td><td>吠え→飼い主が来る、を学習させている</td></tr>
+    <tr><td>夕方</td><td>おやつで釣って黙らせる</td><td>吠えればおやつが出る、を学習させている</td></tr>
+    <tr><td>夜</td><td>「嫌われてるのかな…」と落ち込む</td><td>感情で犬を解釈している</td></tr>
+  </table>
+
+  <h3>よしこさんの心の声</h3>
+  <div class="inner-voice">
+    「言うこと全然聞かない。完全に舐められてる。<br>
+    夫にも『お前が甘いから』って言われるし。<br>
+    ネットには『リーダーになれ』って書いてあるけど、叱ってもその時だけで元に戻るし。<br>
+    もう私じゃ無理なのかも…。でもしつけ教室って高いし、今さら恥ずかしい…。<br><br>
+    正直、飼わなきゃよかったと思う瞬間がある。<br>
+    でもそんなこと、誰にも言えない。」
+  </div>
+
+  <h3>よしこさんを追い詰める「周囲の声」</h3>
+  <table>
+    <tr><th>誰から</th><th>言われること</th><th>よしこさんの心</th></tr>
+    <tr><td>夫</td><td>「お前が甘やかすからだろ」</td><td>私だって頑張ってるのに</td></tr>
+    <tr><td>実母</td><td>「昔の犬はもっと賢かったわよ」</td><td>時代が違うんだって…</td></tr>
+    <tr><td>散歩仲間</td><td>「うちはこうやったら直ったよ」</td><td>それ試したけどダメだった。でも言えない</td></tr>
+    <tr><td>獣医</td><td>「特に異常はないですね」</td><td>じゃあなんでこうなるの？</td></tr>
+    <tr><td>しつけ教室</td><td>「飼い主さんがリーダーにならないと」</td><td>なり方がわからないから来てるのに</td></tr>
+    <tr><td>SNSのコメント</td><td>「愛情が足りないんじゃない？」</td><td>これが一番刺さる</td></tr>
+  </table>
+
+  <div class="highlight">
+    よしこさんは「犬の問題」で悩んでいるのではない。<br>
+    <strong>「誰にもわかってもらえない孤独」</strong>で悩んでいる。
+  </div>
+</div>
+
+<!-- ===== 2. POSITIONING ===== -->
+<div class="section" id="sec2">
+  <p class="section-label">Section 02</p>
+  <h2>ポジショニング ─ 競合との境界線</h2>
+
+  <h3>競合との重なり</h3>
+  <table>
+    <tr><th>競合</th><th>被っている領域</th><th>ゆうりさんとの違い</th></tr>
+    <tr><td>東京DOGS（13.8万）</td><td>恐怖・警告型フック</td><td>豆知識の羅列。個別の犬を「診て」はいない</td></tr>
+    <tr><td>犬の心理学（3.5万）</td><td>行動を読み解く</td><td>心理・行動だけ。身体的原因は扱えない</td></tr>
+    <tr><td>獣医師にゃんとす（11.4万）</td><td>専門用語の平易化</td><td>医療側の視点。行動改善の実践指導はしない</td></tr>
+    <tr><td>しつけの教科書（5.8万）</td><td>常識の否定・逆張り</td><td>目は引くが行動分析の根拠が薄い</td></tr>
+    <tr><td>三井氏（5.2万）</td><td>Before/After実演</td><td>「なぜその行動が出るか」の分析が薄い</td></tr>
+  </table>
+
+  <h3>ゆうりさんだけの領域</h3>
+  <div class="highlight">
+    <strong>「行動」と「体」の境界線を診れる唯一のポジション。</strong><br>
+    元看護師のアセスメント力（情報収集→仮説→検証）で、<br>
+    「しつけの問題か、体の問題か、飼い主の行動の問題か」を切り分けられる。<br><br>
+    競合が言えない一言：<strong>「それ、しつけの問題じゃないかも。」</strong>
+  </div>
+
+  <h3>看護師スキルの武器化</h3>
+  <table>
+    <tr><th>看護師のスキル</th><th>犬への応用</th></tr>
+    <tr><td>バイタルの変化を見逃さない目</td><td>呼吸・姿勢・表情の微細な変化を読む</td></tr>
+    <tr><td>トリアージ（優先順位判断）</td><td>行動の問題か、体の問題かを切り分ける</td></tr>
+    <tr><td>アセスメント（仮説→検証）</td><td>「なぜこの行動をしているか」を体系的に分析</td></tr>
+    <tr><td>患者への伝え方</td><td>不安を煽らず、でも正確に伝える「冷静な警告」</td></tr>
+  </table>
+</div>
+
+<!-- ===== 3. CORE MESSAGE ===== -->
+<div class="section" id="sec3">
+  <p class="section-label">Section 03</p>
+  <h2>コアメッセージ ─ 行動分析で飼い主を変える</h2>
+
+  <div class="highlight">
+    ゴール：「犬を変える」のではなく、<strong>飼い主に行動の仕組みを理解させて、飼い主を変える。</strong><br>
+    核心：<strong>「感情で解釈するな、行動を見ろ」</strong>
+  </div>
+
+  <h3>オペラント条件付け ─ 飼い主が無意識に作った行動</h3>
+  <p style="color:#999;font-size:0.88rem;margin-bottom:12px;">飼い主の反応が犬の行動を強化している。</p>
+  <table>
+    <tr><th>飼い主の行動</th><th>犬が学習すること</th><th>結果</th></tr>
+    <tr><td>吠えたら振り向く</td><td>「吠えれば注目される」</td><td>もっと吠える</td></tr>
+    <tr><td>引っ張ったら付いていく</td><td>「引っ張れば前に進める」</td><td>もっと引っ張る</td></tr>
+    <tr><td>飛びついたら撫でる</td><td>「飛びつけば触ってもらえる」</td><td>もっと飛びつく</td></tr>
+    <tr><td>おやつで釣って黙らせる</td><td>「吠えればおやつが出る」</td><td>吠えが加速</td></tr>
+  </table>
+
+  <h3>レスポンデント条件付け ─ 犬の脳が勝手に覚えた反応</h3>
+  <p style="color:#999;font-size:0.88rem;margin-bottom:12px;">犬の意思とは無関係に、脳が自動的に結びつけた反応。</p>
+  <table>
+    <tr><th>きっかけ</th><th>結びついた記憶</th><th>自動反応</th></tr>
+    <tr><td>爪切りの音</td><td>痛かった経験</td><td>パニック・逃走</td></tr>
+    <tr><td>リードを持つ</td><td>散歩の興奮</td><td>飛び跳ねる</td></tr>
+    <tr><td>特定の人の声</td><td>過去に叱られた</td><td>怯える・唸る</td></tr>
+    <tr><td>動物病院の匂い</td><td>注射の痛み</td><td>震える・固まる</td></tr>
+  </table>
+
+  <h3>よしこさんの行動変容シナリオ</h3>
+  <div class="flow">
+    <div class="flow-step"><span class="num">STEP 1</span><span class="label">気づき</span><span class="desc">「私の反応がご褒美に<br>なってたの？」</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="num">STEP 2</span><span class="label">理解</span><span class="desc">「性格じゃなくて<br>脳の反応なんだ」</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="num">STEP 3</span><span class="label">転換</span><span class="desc">「犬が悪いんじゃない。<br>仕組みがあったんだ」</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="num">STEP 4</span><span class="label">行動</span><span class="desc">「やり方を変えれば<br>この子も変わる？」</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="num">STEP 5</span><span class="label">成功</span><span class="desc">「本当に変わった！」<br>→ 信頼 → 有料へ</span></div>
+  </div>
+</div>
+
+<!-- ===== 4. EMPATHY ===== -->
+<div class="section" id="sec4">
+  <p class="section-label">Section 04</p>
+  <h2>共感設計 ─ よしこさんの孤独に触れる</h2>
+
+  <h3>よしこさんが人に言えないこと</h3>
+  <table>
+    <tr><th>人に言えない本音</th><th>なぜ言えないか</th></tr>
+    <tr><td>「正直、飼わなきゃよかったと思う瞬間がある」</td><td>犬好きとして許されない気がする</td></tr>
+    <tr><td>「この子が可愛いと思えない日がある」</td><td>飼い主失格だと思われる</td></tr>
+    <tr><td>「散歩が怖い。また吠えたらどうしよう」</td><td>大げさだと思われる</td></tr>
+    <tr><td>「夫は何もしないのに犬に好かれてる。ずるい」</td><td>器が小さいと思われる</td></tr>
+    <tr><td>「しつけ教室で先生の前ではいい子だった」</td><td>「大丈夫ですね」で終わって孤立した</td></tr>
+    <tr><td>「本当は泣いたことがある」</td><td>こんなことで泣くなんて恥ずかしい</td></tr>
+  </table>
+
+  <h3>よしこさんの孤立構造</h3>
+  <div class="flow">
+    <div class="flow-step"><span class="label">犬がうまくいかない</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="label">周りに相談</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="label">「あなたが悪い」と言われる</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="label">相談しなくなる</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="label">SNSで同じ悩みを探す</span><span class="desc">ここでゆうりさんに出会う</span></div>
+  </div>
+
+  <h3>ゆうりさんが最初に触れるべきは「犬の話」ではない</h3>
+  <div class="vs-grid">
+    <div class="vs-col ng">
+      <h4>他の発信者</h4>
+      <ul>
+        <li>「飼い主がリーダーになりましょう」</li>
+        <li>「愛情を持って接しましょう」</li>
+        <li>「こうすれば直ります」（犬の話）</li>
+        <li>「しつけの基本は〜」</li>
+      </ul>
+    </div>
+    <div class="vs-col ok">
+      <h4>ゆうりさん</h4>
+      <ul>
+        <li>「リーダーにならなくていい」</li>
+        <li>「愛情はある。やり方を知らなかっただけ」</li>
+        <li>「あなたが辛かったですよね」（飼い主の話）</li>
+        <li>「泣いたことありませんか？」</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <strong>最初に犬の話をしない。最初によしこさんの気持ちを言語化する。</strong><br>
+    それが「この人は私のことわかってる」の正体。
+  </div>
+</div>
+
+<!-- ===== 5. 7 CATEGORIES ===== -->
+<div class="section" id="sec5">
+  <p class="section-label">Section 05</p>
+  <h2>保存される7カテゴリ ─ 投稿設計</h2>
+
+  <p style="color:#999;font-size:0.88rem;margin-bottom:20px;">よしこさんが保存する理由は2つだけ：<strong style="color:#e0e0e0;">「後で見返したい」</strong> と <strong style="color:#e0e0e0;">「怖くて忘れちゃいけない」</strong></p>
+
+  <table>
+    <tr><th>#</th><th>カテゴリ</th><th>保存心理</th><th>推奨頻度</th></tr>
+    <tr><td>①</td><td>チェックリスト系</td><td>「うちの子に当てはまるか確認したい」</td><td>週1</td></tr>
+    <tr><td>②</td><td>「実はそれ逆効果」系</td><td>「やめなきゃ。忘れそうだから保存」</td><td>週1</td></tr>
+    <tr><td>③</td><td>言い換え・翻訳表系</td><td>「犬の言葉の正解を手元に置きたい」</td><td>月2〜3</td></tr>
+    <tr><td>④</td><td>手順・ステップ系</td><td>「やり方を覚えられないから保存」</td><td>週1</td></tr>
+    <tr><td>⑤</td><td>「知らなかった」衝撃系</td><td>「怖すぎて消せない」</td><td>月2</td></tr>
+    <tr><td>⑥</td><td>「家族に見せたい」系</td><td>「保存して夫にLINEで送る」</td><td>月2〜3</td></tr>
+    <tr><td>⑦</td><td>「私だけじゃなかった」共感系</td><td>「お守りとして消せない」</td><td>週1</td></tr>
+  </table>
+
+  <div class="highlight">
+    保存の構造：<strong>感情で止めて、情報で保存させる。</strong>この順番が逆だと保存されない。
+  </div>
+</div>
+
+<!-- ===== 6. POST EXAMPLES ===== -->
+<div class="section" id="sec6">
+  <p class="section-label">Section 06</p>
+  <h2>投稿例文 14本（フック→共感→説明→CTA）</h2>
+
+  <div class="highlight">
+    構成ルール：<strong>フック（3秒）→ 共感（5〜7秒）→ 説明（10〜12秒）→ CTA（3秒）</strong><br>
+    共感パートで「この人わかってる」を作ってから、説明に入る。情報量より信頼。
+  </div>
+
+  <!-- ① チェックリスト × 2 -->
+  <h3>① チェックリスト系</h3>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-checklist">チェックリスト</span>
+      <span class="post-type">リール 30秒</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">呼んでも来ない。目も合わせない。</div>
+      <div class="post-script">
+        <span class="sec">0-3s</span><strong>フック：</strong>呼んでも来ない犬。飼い主が名前を呼ぶ映像<br>
+        <span class="sec">3-8s</span><strong>共感：</strong>「嫌われてるのかなって思いますよね。毎日一緒にいるのに、なんで私だけ。わかります」<br>
+        <span class="sec">8-12s</span><strong>共感（救い）：</strong>「嫌ってないです。犬は"嫌う"という感情で動いていません」<br>
+        <span class="sec">12-22s</span><strong>説明：</strong>ストレスサインを順に提示（あくび・体を掻く・目をそらす・耳を倒す・尻尾を下げる・固まる・パンティング）「これは"助けて"のサインです」<br>
+        <span class="sec">22-27s</span>「3つ以上当てはまったら、犬は今しんどい状態」<br>
+        <span class="sec">27-30s</span><strong>CTA：</strong>「忘れる前に保存」
+      </div>
+      <div class="post-cta">保存 → 散歩中・日常で「これストレスサイン？」と確認する辞書</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「嫌われてるかも」と不安になった時に見返して、感情ではなくサインで判断できる</div>
+  </div>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-checklist">チェックリスト</span>
+      <span class="post-type">カルーセル 6枚</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">触ろうとしたら、避けられた。</div>
+      <div class="post-script">
+        <span class="sec">1枚目</span><strong>フック＋共感：</strong>「触ろうとしたら、避けられた。地味にキツいですよね。"私のこと嫌いなの？"って」<br>
+        <span class="sec">2枚目</span><strong>共感（救い）：</strong>「嫌いじゃないです。犬には"避ける理由"が必ずあります」<br>
+        <span class="sec">3枚目</span><strong>説明：</strong>避ける理由チェックリスト（触り方が苦手 / 過去に痛い経験 / タイミングが悪い / 体のどこかが痛い）<br>
+        <span class="sec">4枚目</span>「"性格"で片付けないで。理由を1つずつ確認してみてください」<br>
+        <span class="sec">5枚目</span>フローチャート図解（状況→原因の切り分け→対応）<br>
+        <span class="sec">6枚目</span><strong>CTA：</strong>「心当たりがあったら保存。プロフへ」
+      </div>
+      <div class="post-cta">保存 → 避けられるたびに見返して原因を特定したい</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「嫌われてる」で思考停止せず、原因を探すための手引きとして</div>
+  </div>
+
+  <!-- ② 逆効果系 × 2 -->
+  <h3>② 「実はそれ逆効果」系</h3>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-fear">逆効果</span>
+      <span class="post-type">リール 30秒</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">「静かに！」って叫んでも、もっと吠える。</div>
+      <div class="post-script">
+        <span class="sec">0-3s</span><strong>フック：</strong>飼い主が「静かに！」と叫ぶ → 犬がさらに吠える映像<br>
+        <span class="sec">3-8s</span><strong>共感：</strong>「毎日これ。近所に聞こえてると思うと申し訳なくて。もう何回叫んだかわからない」<br>
+        <span class="sec">8-11s</span><strong>共感（救い）：</strong>「あなたが悪いんじゃない。叫びたくなるのは当然です」<br>
+        <span class="sec">11-20s</span><strong>説明：</strong>「ただ、犬の脳には"声を出してくれた＝反応もらえた"と記録されてます。あなたの"静かに"は、犬にとっては"もっとやって"のサイン」<br>
+        <span class="sec">20-27s</span>「やることは1つ。何もしない。視線を外して、離れる」<br>
+        <span class="sec">27-30s</span><strong>CTA：</strong>「忘れる前に保存」
+      </div>
+      <div class="post-cta">保存 → 叫びそうになった時のブレーキとして</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「叫ぶのは自然な反応」と許してもらえた安心感＋具体的な代替行動を手元に</div>
+  </div>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-fear">逆効果</span>
+      <span class="post-type">リール 30秒</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">おやつ見せた瞬間だけ静かになる。それだけ。</div>
+      <div class="post-script">
+        <span class="sec">0-3s</span><strong>フック：</strong>おやつを差し出して犬を黙らせる飼い主の映像<br>
+        <span class="sec">3-8s</span><strong>共感：</strong>「とりあえず静かになってほしい。その気持ち、痛いほどわかります。必死ですよね」<br>
+        <span class="sec">8-11s</span><strong>共感（救い）：</strong>「やり方を知らなかっただけ。あなたの愛情は間違ってない」<br>
+        <span class="sec">11-20s</span><strong>説明：</strong>「ただ犬の脳には"吠える→おやつが出る"と記録されてます。吠えれば吠えるほどおやつが出る。犬は正しく学習しているだけ」<br>
+        <span class="sec">20-27s</span>「おやつは"静かな時"に出す。タイミングを変えるだけで全部変わります」<br>
+        <span class="sec">27-30s</span><strong>CTA：</strong>「保存して今日から実践」
+      </div>
+      <div class="post-cta">保存 → おやつの出し方を根本から変える</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「必死だったこと」を否定されなかった安心感。具体策を見返したい</div>
+  </div>
+
+  <!-- ③ 翻訳表系 × 2 -->
+  <h3>③ 言い換え・翻訳表系</h3>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-translate">翻訳表</span>
+      <span class="post-type">カルーセル 7枚</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">言うこと聞くのは、夫の前だけ。</div>
+      <div class="post-script">
+        <span class="sec">1枚目</span><strong>フック＋共感：</strong>「言うこと聞くのは、夫の前だけ。"完全に舐められてる"って思いますよね。わかります」<br>
+        <span class="sec">2枚目</span><strong>共感（救い）：</strong>「でも犬は"舐める・舐めない"で動いてないんです。それ、全部行動の仕組みで説明できます」<br>
+        <span class="sec">3枚目</span><strong>説明：</strong>「舐められてる」→ あなたの反応で要求行動が強化されている<br>
+        <span class="sec">4枚目</span>「反抗してる」→ 指示と結果が結びついていないだけ<br>
+        <span class="sec">5枚目</span>「わざとやってる」→ その行動で過去にうまくいった経験がある<br>
+        <span class="sec">6枚目</span>「嫌われてる」→ 特定の状況を避けているだけ<br>
+        <span class="sec">7枚目</span><strong>CTA：</strong>「犬はあなたを"評価"していません。感情を外して行動を見れば、答えはシンプル。保存」
+      </div>
+      <div class="post-cta">保存 → 「また舐められてる」と思った時に開く辞書</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>感情的になった時に見返して冷静になるため。思い込みを矯正する</div>
+  </div>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-translate">翻訳表</span>
+      <span class="post-type">カルーセル 6枚</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">叱ったら固まる。褒めても無視。</div>
+      <div class="post-script">
+        <span class="sec">1枚目</span><strong>フック＋共感：</strong>「叱ったら固まる。褒めても無視。"どうすればいいの？"って、もう何回思いましたか」<br>
+        <span class="sec">2枚目</span><strong>共感（救い）：</strong>「犬は問題を起こしているんじゃない。"伝えようとしている"んです。ただ、言葉が違う」<br>
+        <span class="sec">3枚目</span><strong>説明：</strong>吠える＝「ここにいるよ」「怖い」「来て」（状況で意味が変わる）<br>
+        <span class="sec">4枚目</span>噛む＝「やめて」「痛い」「興奮してる」<br>
+        <span class="sec">5枚目</span>引っ張る＝「あっちに行きたい」（目的があるだけ）<br>
+        <span class="sec">6枚目</span><strong>CTA：</strong>「"犬語"がわかると、叱る必要がなくなります。まずは行動を見ることから。保存」
+      </div>
+      <div class="post-cta">保存 → 犬が何かした時に「何を言ってるか」を見返す</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「伝えようとしてるんだ」の気づきが大きい。犬の翻訳辞書として手元に</div>
+  </div>
+
+  <!-- ④ 手順系 × 2 -->
+  <h3>④ 手順・ステップ系</h3>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-steps">手順</span>
+      <span class="post-type">リール 30秒</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">チャイムが鳴った。また始まった。</div>
+      <div class="post-script">
+        <span class="sec">0-3s</span><strong>フック：</strong>チャイム → 犬が吠える → 飼い主がうつむく映像<br>
+        <span class="sec">3-8s</span><strong>共感：</strong>「宅配が来るたびに心臓バクバクしてるの、犬じゃなくて自分の方。毎回"すみません"って謝って」<br>
+        <span class="sec">8-11s</span><strong>共感（救い）：</strong>「もう謝らなくていいです。終わらせましょう」<br>
+        <span class="sec">11-17s</span><strong>説明：</strong>STEP 1「視線を外す」— 犬を見ない<br>
+        <span class="sec">17-22s</span>STEP 2「その場を離れる」— 別の部屋に行く<br>
+        <span class="sec">22-27s</span>STEP 3「静かになったら戻る」— "静か＝いいこと"を犬に覚えさせる<br>
+        <span class="sec">27-30s</span><strong>CTA：</strong>「1週間で変わります。保存」
+      </div>
+      <div class="post-cta">保存 → チャイムが鳴った瞬間にスマホで確認</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「もう謝らなくていい」に救われた。3ステップを体に覚えるまで見返す</div>
+  </div>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-steps">手順</span>
+      <span class="post-type">カルーセル 8枚</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">爪切り出しただけで、もう逃げてる。</div>
+      <div class="post-script">
+        <span class="sec">1枚目</span><strong>フック＋共感：</strong>「爪切り出しただけで、もう逃げてる。押さえつけて切って、お互いボロボロ。もう連れて行くのも怖い」<br>
+        <span class="sec">2枚目</span><strong>共感（救い）：</strong>「"臆病な性格"じゃないです。脳が"爪切り＝痛い"を覚えただけ。書き換えられます」<br>
+        <span class="sec">3枚目</span><strong>説明：</strong>DAY 1：爪切りを床に置くだけ。何もしない<br>
+        <span class="sec">4枚目</span>DAY 2：爪切りのそばでおやつ。触らない<br>
+        <span class="sec">5枚目</span>DAY 3：爪切りを持つだけ。切らない<br>
+        <span class="sec">6枚目</span>DAY 4：1本だけ触れる。切らなくていい<br>
+        <span class="sec">7枚目</span>DAY 5：1本だけ切る。終わったら好きなことをさせる<br>
+        <span class="sec">8枚目</span><strong>CTA：</strong>「"嫌な記憶"を"何も起きない記憶"で上書きする技術。焦らず1日ずつ。保存して進めてください」
+      </div>
+      <div class="post-cta">保存 → 毎日1枚ずつ見返しながら実践する</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「書き換えられる」に希望を持てた。5日間プログラムを進めるため保存必須</div>
+  </div>
+
+  <!-- ⑤ 衝撃系 × 2 -->
+  <h3>⑤ 「知らなかった」衝撃系</h3>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-shock">衝撃</span>
+      <span class="post-type">リール 30秒</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">叱ったあと、目をそらされた。「反省してる」って思ってた。</div>
+      <div class="post-script">
+        <span class="sec">0-3s</span><strong>フック：</strong>叱られて耳を倒し目をそらす犬の映像<br>
+        <span class="sec">3-8s</span><strong>共感：</strong>「あの顔見ると"わかってくれた"って安心しますよね。何度もそう思ってきたと思います」<br>
+        <span class="sec">8-11s</span><strong>共感（転換）：</strong>「でも…あの顔、"反省"じゃないんです」<br>
+        <span class="sec">11-20s</span><strong>説明：</strong>「あれは"恐怖"です。叱る声が繰り返されると、犬の脳に"この人の声＝怖いこと"が刻まれていく。叱るたびに、信頼が削れています」<br>
+        <span class="sec">20-27s</span>「叱らなくても行動は変えられます。知らなかっただけ。今日知れてよかった」<br>
+        <span class="sec">27-30s</span><strong>CTA：</strong>「保存」
+      </div>
+      <div class="post-cta">保存 → 叱りそうになった瞬間に思い出すため</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「安心してた自分」へのショック。二度と叱りたくない。ブレーキとして消せない</div>
+  </div>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-shock">衝撃</span>
+      <span class="post-type">リール 30秒</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">名前呼んだら耳だけ動いて、来ない。</div>
+      <div class="post-script">
+        <span class="sec">0-3s</span><strong>フック：</strong>名前を呼ぶ飼い主。耳だけピクッ。動かない犬<br>
+        <span class="sec">3-8s</span><strong>共感：</strong>「"聞こえてるくせに！"って思いますよね。無視されてる気がして、地味にキツい」<br>
+        <span class="sec">8-11s</span><strong>共感（転換）：</strong>「無視じゃないんです。"行かない理由"があるだけ」<br>
+        <span class="sec">11-20s</span><strong>説明：</strong>「名前を呼ばれた後に"嫌なこと"が起きた経験がある犬は、名前＝警戒のサインになる。爪切り、お風呂、叱られる…。名前が"危険信号"になっています」<br>
+        <span class="sec">20-27s</span>「名前を呼んだ後に"いいこと"だけ起こす。これで上書きできます」<br>
+        <span class="sec">27-30s</span><strong>CTA：</strong>「忘れたくない人は保存」
+      </div>
+      <div class="post-cta">保存 → 名前の呼び方を変えるきっかけとして</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「名前が危険信号」の衝撃。今日から呼び方を変えたい</div>
+  </div>
+
+  <!-- ⑥ 家族に見せたい × 2 -->
+  <h3>⑥ 「家族に見せたい」系</h3>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-family">家族に見せたい</span>
+      <span class="post-type">リール 30秒</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">「お前が甘いから」って、また言われた。</div>
+      <div class="post-script">
+        <span class="sec">0-3s</span><strong>フック：</strong>テロップのみ。「お前が甘いから」<br>
+        <span class="sec">3-8s</span><strong>共感：</strong>「毎日世話してるのは自分なのに。何もしない人に言われるのが、一番キツい。わかります」<br>
+        <span class="sec">8-11s</span><strong>共感（救い）：</strong>「あなたは甘やかしてない。ただ"タイミング"がズレてるだけです」<br>
+        <span class="sec">11-20s</span><strong>説明：</strong>「犬の要求に"応える"のと"強化する"のは違う。吠えた時に抱く→強化。落ち着いてる時に抱く→応えてる。同じ行動でも、タイミングで意味が真逆になる」<br>
+        <span class="sec">20-27s</span>「"甘やかし"じゃなくて"タイミング"の問題。これ夫に見せてください」<br>
+        <span class="sec">27-30s</span><strong>CTA：</strong>「保存してLINEで送って」
+      </div>
+      <div class="post-cta">保存 → 夫にLINEで送る用。「プロが言ってる」が最強の説得材料</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>自分の気持ちを代弁してくれた。第三者の声で夫に届ける武器</div>
+  </div>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-family">家族に見せたい</span>
+      <span class="post-type">カルーセル 5枚</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">私がダメって言ったおやつ、夫がもうあげてる。</div>
+      <div class="post-script">
+        <span class="sec">1枚目</span><strong>フック＋共感：</strong>「私がダメって言ったおやつ、夫がもうあげてる。"何回言えばわかるの"って叫びたくなりますよね」<br>
+        <span class="sec">2枚目</span><strong>共感（救い）：</strong>「あなたは間違ってない。でも家族がバラバラだと、犬はもっと混乱します」<br>
+        <span class="sec">3枚目</span><strong>説明：</strong>家族で統一すべき3つ（声かけ・おやつ・対応ルール）。バラバラだと犬は"人を使い分ける"を覚える<br>
+        <span class="sec">4枚目</span>「お母さんの前では吠えるけど、お父さんの前では静か。それは"舐めてる"んじゃなくて"学習結果"」<br>
+        <span class="sec">5枚目</span><strong>CTA：</strong>「家族に黙ってこの投稿送ってください。保存」
+      </div>
+      <div class="post-cta">保存 → 家族に見せる＋ルール統一の教材として</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「あなたは間違ってない」に救われた。家族会議の武器として</div>
+  </div>
+
+  <!-- ⑦ 共感系 × 2 -->
+  <h3>⑦ 「私だけじゃなかった」共感系</h3>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-empathy">共感</span>
+      <span class="post-type">リール 30秒</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">散歩の時間が近づくと、胃が重い。</div>
+      <div class="post-script">
+        <span class="sec">0-3s</span><strong>フック：</strong>リードを見つめてため息をつく映像<br>
+        <span class="sec">3-8s</span><strong>共感：</strong>「また吠えたらどうしよう。すれ違う人に頭下げるのが辛い。帰ってきたらどっと疲れてる」<br>
+        <span class="sec">8-12s</span><strong>共感：</strong>「散歩が憂鬱になってるのは、あなたが逃げてないからです。向き合ってるから辛い」<br>
+        <span class="sec">12-15s</span><strong>共感（救い）：</strong>「大丈夫です。散歩が"一番楽しい時間"に変わる日は来ます」<br>
+        <span class="sec">15-25s</span><strong>説明：</strong>「引っ張る・吠える。全部"やり方"で変えられます。犬を変えるんじゃなくて、歩き方のルールを変えるだけ」<br>
+        <span class="sec">25-30s</span><strong>CTA：</strong>「一人で抱えないでください。プロフへ」
+      </div>
+      <div class="post-cta">保存 → 辛い日のお守り</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「向き合ってるから辛い」に泣きそうになった。お守りとして消せない</div>
+  </div>
+
+  <div class="post-example">
+    <div class="post-header">
+      <span class="post-tag tag-empathy">共感</span>
+      <span class="post-type">リール 30秒</span>
+    </div>
+    <div class="post-body">
+      <div class="post-hook">「飼わなきゃよかった」って思って、そんな自分が一番嫌だった。</div>
+      <div class="post-script">
+        <span class="sec">0-3s</span><strong>フック：</strong>犬と距離を置いてソファに座る飼い主の映像<br>
+        <span class="sec">3-8s</span><strong>共感：</strong>「頑張ってるのに報われない。誰にも言えない。"飼い主失格だ"って自分を責めてる」<br>
+        <span class="sec">8-12s</span><strong>共感：</strong>「そう思ったことがある人、たくさんいます。あなただけじゃない」<br>
+        <span class="sec">12-15s</span><strong>共感（救い）：</strong>「"飼わなきゃよかった"と思うほど追い詰められてたこと。それ自体が、限界まで頑張った証拠です」<br>
+        <span class="sec">15-25s</span><strong>説明：</strong>「"可愛いと思えない"のは愛情がないんじゃない。疲れてるだけ。犬はあなたを責めていません。まず自分を許すことから」<br>
+        <span class="sec">25-30s</span><strong>CTA：</strong>「明日からできること、一緒に見つけましょう。プロフへ」
+      </div>
+      <div class="post-cta">保存 → 泣きそうな夜に見返す</div>
+    </div>
+    <div class="post-save-reason"><span>保存理由：</span>「限界まで頑張った証拠」に許してもらえた。お守り。絶対に消せない</div>
+  </div>
+
+</div>
+
+<!-- ===== 7. TRANSLATION TABLE ===== -->
+<div class="section" id="sec7">
+  <p class="section-label">Section 07</p>
+  <h2>伝え方の鉄則 ─ 翻訳テーブル</h2>
+
+  <p style="color:#999;font-size:0.88rem;margin-bottom:8px;">よしこさんに専門用語は通じない。すべて「日常の言葉」に翻訳する。</p>
+
+  <table>
+    <tr><th>専門用語</th><th>よしこさんに通じる言い方</th></tr>
+    <tr><td>オペラント条件付け</td><td>「あなたの反応が犬の"クセ"を作っている」</td></tr>
+    <tr><td>レスポンデント条件付け</td><td>「犬の脳が勝手に覚えた"自動反応"」</td></tr>
+    <tr><td>正の強化</td><td>「ご褒美になっちゃってる」</td></tr>
+    <tr><td>負の強化</td><td>「嫌なことが消えるから繰り返す」</td></tr>
+    <tr><td>消去</td><td>「反応しないと、やらなくなる」</td></tr>
+    <tr><td>拮抗条件付け</td><td>「嫌な記憶を、いい記憶で上書きする」</td></tr>
+    <tr><td>カーミングシグナル</td><td>「犬の"もうやめて"のサイン」</td></tr>
+    <tr><td>般化</td><td>「別の場所でもできるようにする」</td></tr>
+  </table>
+
+  <h3>絶対に守るトーンルール</h3>
+
+  <div class="vs-grid">
+    <div class="vs-col ng">
+      <h4>絶対に言わない</h4>
+      <ul>
+        <li>「飼い主が原因です」</li>
+        <li>「あなたが間違っています」</li>
+        <li>「愛情が足りない」</li>
+        <li>「犬が可哀想」</li>
+        <li>「なぜもっと早く気づかなかったんですか」</li>
+      </ul>
+    </div>
+    <div class="vs-col ok">
+      <h4>必ずこう言い換える</h4>
+      <ul>
+        <li>「やり方が違っただけ」</li>
+        <li>「知らなかっただけ。大丈夫」</li>
+        <li>「愛情はある。伝え方を変えるだけ」</li>
+        <li>「犬は正しく反応しているだけ」</li>
+        <li>「今日気づけたなら、もう変われます」</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <strong>鉄則：「あなた」を責めず、「やり方」を差し替える。</strong><br>
+    犬を変えるのではなく、見方を変えれば犬が変わる、と伝える。
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<p class="footer">Instagram Strategy Document — ゆうり｜愛犬を観て・診るドッグトレーナー — 2026.04.11</p>
+
+</div>
+</body>
+</html>
