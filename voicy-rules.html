@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voicy 音声ダウンロードの規約まとめ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background: linear-gradient(135deg, #fef6f9 0%, #f0e6ff 50%, #e6f0ff 100%);
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+    color: #4a3a5c;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* ヘッダー */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 32px 20px;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(180, 140, 200, .12);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, #ff9ec4, #c49cff, #9cc4ff, #ff9ec4);
+    background-size: 300% 100%;
+    animation: shimmer 4s ease infinite;
+  }
+  @keyframes shimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+  .header-icon { font-size: 48px; margin-bottom: 8px; }
+  .header h1 { font-size: 22px; font-weight: 900; color: #7c5ca3; margin-bottom: 6px; }
+  .header p { font-size: 13px; color: #9a8aad; }
+
+  /* 比較セクション */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+  @media (max-width: 640px) {
+    .compare-grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s;
+  }
+  .card:hover { transform: translateY(-3px); }
+
+  /* リスナーカード */
+  .card--listener { border: 2.5px solid #ff8fa8; }
+  .card--listener .card-badge {
+    background: linear-gradient(135deg, #ff6b8a, #ff8fa8);
+  }
+
+  /* 発信者カード */
+  .card--owner { border: 2.5px solid #8fb8ff; }
+  .card--owner .card-badge {
+    background: linear-gradient(135deg, #5b8def, #8fb8ff);
+  }
+
+  .card-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: white; font-weight: 700; font-size: 13px;
+    padding: 6px 14px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .card-badge span { font-size: 18px; }
+
+  .card h2 { font-size: 17px; font-weight: 900; margin-bottom: 4px; }
+  .card--listener h2 { color: #d4476a; }
+  .card--owner h2 { color: #3a6fd8; }
+
+  .card .subtitle {
+    font-size: 12px; color: #aaa; margin-bottom: 16px;
+  }
+
+  /* 結論バッジ */
+  .verdict {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px; border-radius: 14px;
+    font-weight: 700; font-size: 14px;
+    margin-bottom: 18px;
+  }
+  .verdict--ng {
+    background: #fff0f3; color: #d4476a; border: 1.5px dashed #ffb3c1;
+  }
+  .verdict--ok {
+    background: #f0f6ff; color: #3a6fd8; border: 1.5px dashed #a8c8ff;
+  }
+  .verdict--warn {
+    background: #fff8ec; color: #c48a1a; border: 1.5px dashed #ffd580;
+  }
+  .verdict-icon { font-size: 22px; flex-shrink: 0; }
+
+  /* 違反項目リスト */
+  .violation-list { list-style: none; margin-bottom: 8px; }
+  .violation-list li {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 13.5px; line-height: 1.6;
+  }
+  .violation-list li:last-child { border-bottom: none; }
+  .violation-list .icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .violation-list strong { color: #5a3d7a; }
+
+  /* ペナルティ */
+  .penalty-box {
+    border-radius: 14px; padding: 14px 16px;
+    margin-top: 12px; font-size: 13px; line-height: 1.7;
+  }
+  .penalty-box--red {
+    background: linear-gradient(135deg, #fff0f3, #ffe8ec);
+    border-left: 4px solid #ff6b8a;
+  }
+  .penalty-box--orange {
+    background: linear-gradient(135deg, #fff8ec, #fff3dc);
+    border-left: 4px solid #ffb347;
+  }
+  .penalty-box .penalty-title {
+    font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;
+  }
+  .penalty-box--red .penalty-title { color: #d4476a; }
+  .penalty-box--orange .penalty-title { color: #c48a1a; }
+
+  /* 比較テーブル */
+  .compare-table-wrap {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    margin-bottom: 36px;
+    overflow-x: auto;
+  }
+  .compare-table-wrap h2 {
+    text-align: center; font-size: 17px; font-weight: 900;
+    color: #7c5ca3; margin-bottom: 18px;
+  }
+  .compare-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    font-size: 13px;
+  }
+  .compare-table th, .compare-table td {
+    padding: 12px 14px; text-align: center; vertical-align: middle;
+  }
+  .compare-table thead th {
+    font-weight: 700; font-size: 13px; border-bottom: 2px solid #e8ddf0;
+  }
+  .compare-table thead th:first-child { text-align: left; }
+  .compare-table thead th:nth-child(2) { color: #d4476a; background: #fff5f8; border-radius: 12px 12px 0 0; }
+  .compare-table thead th:nth-child(3) { color: #3a6fd8; background: #f0f6ff; border-radius: 12px 12px 0 0; }
+  .compare-table tbody td { border-bottom: 1px dashed #eee; }
+  .compare-table tbody td:first-child { text-align: left; font-weight: 500; }
+  .compare-table tbody td:nth-child(2) { background: #fffafb; }
+  .compare-table tbody td:nth-child(3) { background: #fafcff; }
+  .compare-table tbody tr:last-child td { border-bottom: none; }
+  .cell-ng { color: #d4476a; font-weight: 700; }
+  .cell-ok { color: #3a9a5c; font-weight: 700; }
+  .cell-warn { color: #c48a1a; font-weight: 700; }
+
+  /* フローチャート */
+  .flow-section {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    margin-bottom: 36px;
+  }
+  .flow-section h2 {
+    text-align: center; font-size: 17px; font-weight: 900;
+    color: #7c5ca3; margin-bottom: 20px;
+  }
+
+  .flow {
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+  }
+  .flow-step {
+    background: #f8f4ff; border: 2px solid #d8ccee;
+    border-radius: 16px; padding: 14px 22px;
+    text-align: center; font-size: 14px; font-weight: 500;
+    min-width: 260px; max-width: 360px; position: relative;
+  }
+  .flow-step--q {
+    background: linear-gradient(135deg, #e8ddf0, #f0e6ff);
+    border-color: #c4a8e0; font-weight: 700;
+  }
+  .flow-arrow {
+    font-size: 22px; color: #c4a8e0; line-height: 1;
+    padding: 4px 0;
+  }
+  .flow-branch {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  }
+  .flow-branch .flow-step { min-width: 180px; }
+  .flow-step--ok { background: #eef7f1; border-color: #a8ddb5; color: #2d7a4a; }
+  .flow-step--ng { background: #fff0f3; border-color: #ffb3c1; color: #d4476a; }
+  .flow-step--warn { background: #fff8ec; border-color: #ffd580; color: #b07a10; }
+
+  .flow-label {
+    font-size: 11px; font-weight: 700; color: #9a8aad;
+    margin-bottom: 2px;
+  }
+
+  /* まとめ */
+  .summary {
+    background: linear-gradient(135deg, #f8f0ff, #eef4ff);
+    border-radius: 20px; padding: 28px 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    text-align: center;
+  }
+  .summary h2 {
+    font-size: 18px; font-weight: 900; color: #7c5ca3;
+    margin-bottom: 16px;
+  }
+  .summary-points {
+    display: flex; flex-direction: column; gap: 12px;
+    max-width: 600px; margin: 0 auto;
+  }
+  .summary-point {
+    display: flex; align-items: center; gap: 12px;
+    background: white; border-radius: 14px;
+    padding: 14px 18px; text-align: left;
+    font-size: 13.5px; line-height: 1.6;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  }
+  .summary-point .sp-icon { font-size: 28px; flex-shrink: 0; }
+  .summary-point strong { color: #5a3d7a; }
+
+  .footer-note {
+    text-align: center; font-size: 11px; color: #bbb;
+    margin-top: 32px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ヘッダー -->
+  <div class="header">
+    <div class="header-icon">🎧</div>
+    <h1>Voicy 音声ダウンロードの規約まとめ</h1>
+    <p>リスナー vs 発信者 ─ 何がOKで何がNGかをわかりやすく整理しました</p>
+  </div>
+
+  <!-- 比較カード -->
+  <div class="compare-grid">
+
+    <!-- リスナー -->
+    <div class="card card--listener">
+      <div class="card-badge"><span>🎧</span> リスナー（聴く側）</div>
+      <h2>他者がダウンロードする場合</h2>
+      <p class="subtitle">チャンネルオーナー以外の人</p>
+
+      <div class="verdict verdict--ng">
+        <span class="verdict-icon">🚫</span>
+        ダウンロード自体が完全NG！
+      </div>
+
+      <ul class="violation-list">
+        <li>
+          <span class="icon">📋</span>
+          <div><strong>権利の逸脱</strong><br>リスナーが持つのは「サービス上で聴ける権利」だけ。ダウンロード・保存はこの範囲を完全に逸脱</div>
+        </li>
+        <li>
+          <span class="icon">©️</span>
+          <div><strong>知的財産権の侵害</strong><br>音声の著作権は発信者に帰属。無断ダウンロードは「第三者の知的財産権を侵害する行為」に該当</div>
+        </li>
+        <li>
+          <span class="icon">🤖</span>
+          <div><strong>AI学習利用の禁止</strong><br>ダウンロードしたデータを生成AI等の学習に使うことも明確に禁止されている</div>
+        </li>
+      </ul>
+
+      <div class="penalty-box penalty-box--red">
+        <div class="penalty-title">⚡ ペナルティ</div>
+        事前の通知や催告なしに<br>
+        ・アカウント利用制限 / 停止<br>
+        ・アカウント削除
+      </div>
+    </div>
+
+    <!-- 発信者 -->
+    <div class="card card--owner">
+      <div class="card-badge"><span>🎙️</span> 発信者（チャンネルオーナー）</div>
+      <h2>自分の音声をダウンロードする場合</h2>
+      <p class="subtitle">チャンネルオーナー本人</p>
+
+      <div class="verdict verdict--ok">
+        <span class="verdict-icon">✅</span>
+        データ保存自体はOK！
+      </div>
+      <div class="verdict verdict--warn" style="margin-top: -6px;">
+        <span class="verdict-icon">⚠️</span>
+        ただし「手段」に要注意！
+      </div>
+
+      <ul class="violation-list">
+        <li>
+          <span class="icon">💾</span>
+          <div><strong>自身のデータ保存</strong><br>著作権は自分にあるので、複製・保存しても他者の権利を侵害しない → <span style="color:#3a9a5c;font-weight:700;">問題なし</span></div>
+        </li>
+        <li>
+          <span class="icon">🔧</span>
+          <div><strong>非公式ツールの使用</strong><br>サーバーに著しく負荷をかける行為は禁止。抽出ツール等での強引なDLは → <span style="color:#d4476a;font-weight:700;">違反</span></div>
+        </li>
+        <li>
+          <span class="icon">🔍</span>
+          <div><strong>リバースエンジニアリング</strong><br>プログラムの改変・逆アセンブル・逆コンパイル等の行為は → <span style="color:#d4476a;font-weight:700;">違反</span></div>
+        </li>
+      </ul>
+
+      <div class="penalty-box penalty-box--orange">
+        <div class="penalty-title">⚡ ペナルティ（不正手段の場合）</div>
+        ・アカウント / チャンネルの利用制限 / 停止 / 削除<br>
+        ・未払い収益の支払い留保<br>
+        ・<strong>違約金として収益没収</strong>の可能性も
+      </div>
+    </div>
+  </div>
+
+  <!-- 比較テーブル -->
+  <div class="compare-table-wrap">
+    <h2>📊 かんたん比較表</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>チェック項目</th>
+          <th>🎧 リスナー</th>
+          <th>🎙️ 発信者</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>音声の著作権</td>
+          <td class="cell-ng">持っていない</td>
+          <td class="cell-ok">自分に帰属</td>
+        </tr>
+        <tr>
+          <td>許諾されている権利</td>
+          <td>サービス上で聴くだけ</td>
+          <td>配信 + 著作権保持</td>
+        </tr>
+        <tr>
+          <td>ダウンロード行為</td>
+          <td class="cell-ng">🚫 完全NG</td>
+          <td class="cell-ok">✅ 権利上はOK</td>
+        </tr>
+        <tr>
+          <td>非公式ツールでの取得</td>
+          <td class="cell-ng">🚫 NG</td>
+          <td class="cell-ng">🚫 NG</td>
+        </tr>
+        <tr>
+          <td>AI学習への利用</td>
+          <td class="cell-ng">🚫 明確に禁止</td>
+          <td class="cell-warn">⚠️ 要確認</td>
+        </tr>
+        <tr>
+          <td>ペナルティ</td>
+          <td>アカウント制限 / 削除</td>
+          <td>アカウント制限 / 削除<br>+ <strong>収益没収の可能性</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- フローチャート -->
+  <div class="flow-section">
+    <h2>🔀 ダウンロードしていいの？判定フロー</h2>
+    <div class="flow">
+      <div class="flow-step flow-step--q">🤔 あなたはどっち？</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-branch">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+          <div class="flow-label">🎧 リスナーの場合</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step flow-step--ng">🚫 ダウンロードNG<br><small>行為自体が規約違反</small></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+          <div class="flow-label">🎙️ 発信者の場合</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step flow-step--q" style="font-size:13px;">公式の手段で取得？</div>
+          <div class="flow-arrow">↓</div>
+          <div style="display:flex;gap:12px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+              <div class="flow-label">はい ✨</div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-step flow-step--ok">✅ OK！<br><small>自分の著作物です</small></div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+              <div class="flow-label">いいえ 😰</div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-step flow-step--warn">⚠️ 要注意<br><small>システム規約違反<br>の恐れあり</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- まとめ -->
+  <div class="summary">
+    <h2>💡 おさらい</h2>
+    <div class="summary-points">
+      <div class="summary-point">
+        <span class="sp-icon">🎧</span>
+        <div><strong>リスナー</strong>のダウンロードは<strong style="color:#d4476a;">「行為そのもの」が権利侵害</strong>であり、完全な規約違反です。</div>
+      </div>
+      <div class="summary-point">
+        <span class="sp-icon">🎙️</span>
+        <div><strong>発信者</strong>が自身のデータをDLすること自体は問題ないが、<strong style="color:#c48a1a;">「不正な手段」</strong>を使うとシステム規約違反で<strong style="color:#d4476a;">収益没収</strong>もありえます。</div>
+      </div>
+      <div class="summary-point">
+        <span class="sp-icon">🔑</span>
+        <div>ポイントは<strong>「誰が」</strong>と<strong>「どうやって」</strong>の2軸。立場と手段の両方をチェック！</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="footer-note">※ このページはVoicy利用規約の内容を分かりやすく整理したものです。正確な規約内容は公式サイトをご確認ください。</p>
+
+</div>
+</body>
+</html>
