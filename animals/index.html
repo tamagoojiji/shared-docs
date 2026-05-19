@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>個性心理学・12動物図鑑</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+    color: #1f2937; min-height: 100vh; padding: 32px 16px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 {
+    font-size: 28px; font-weight: 900; color: #111827; margin-bottom: 8px;
+    text-align: center;
+  }
+  .sub {
+    text-align: center; color: #6b7280; margin-bottom: 28px;
+    font-size: 13px; line-height: 1.6;
+  }
+  .group-section { margin-bottom: 28px; }
+  .group-title {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    font-size: 16px; font-weight: 800; margin-bottom: 12px;
+    padding: 10px 14px; border-radius: 8px; color: white;
+  }
+  .group-title.SUN { background: linear-gradient(135deg, #ea580c, #f97316); }
+  .group-title.EARTH { background: linear-gradient(135deg, #059669, #10b981); }
+  .group-title.MOON { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    background: white; border-radius: 12px; padding: 18px 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    text-decoration: none; color: inherit;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; border-top: 4px solid var(--c);
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  }
+  .card.SUN { --c: #ea580c; }
+  .card.EARTH { --c: #059669; }
+  .card.MOON { --c: #2563eb; }
+  .card-emoji { font-size: 40px; margin-bottom: 8px; }
+  .card-name { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .card-tagline { font-size: 11px; color: #6b7280; line-height: 1.4; }
+  .card-stage {
+    margin-top: 8px; font-size: 10px; color: var(--c); font-weight: 700;
+    padding: 2px 8px; background: #f3f4f6; border-radius: 999px;
+  }
+  footer {
+    text-align: center; margin-top: 40px; padding: 20px;
+    font-size: 12px; color: #9ca3af;
+  }
+  @media print {
+    body { background: white; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>個性心理学・12動物図鑑</h1>
+  <p class="sub">A4横1枚 / 動物別の特性・行動パターン・分類軸・ミスの傾向</p>
+
+  <div class="group-section"><div class="group-title SUN">☀️ SUN（太陽） <span style="font-size:13px;opacity:0.9;">— 完了を柱に「成功者」を目指す（約25%）</span></div><div class="grid"><a class="card SUN" href="animal-ペガサス.html"><div class="card-emoji">🦄</div><div class="card-name">ペガサス</div><div class="card-tagline">気分屋さんな天才肌</div><div class="card-stage">胎児（魂）</div></a><a class="card SUN" href="animal-チーター.html"><div class="card-emoji">🐆</div><div class="card-name">チーター</div><div class="card-tagline">取り掛かりがとにかく早い</div><div class="card-stage">中学生</div></a><a class="card SUN" href="animal-ライオン.html"><div class="card-emoji">🦁</div><div class="card-name">ライオン</div><div class="card-tagline">やると決めたら徹底的</div><div class="card-stage">働き盛り</div></a><a class="card SUN" href="animal-ゾウ.html"><div class="card-emoji">🐘</div><div class="card-name">ゾウ</div><div class="card-tagline">強い信念と実行力</div><div class="card-stage">人生の終盤</div></a></div></div>
+<div class="group-section"><div class="group-title EARTH">🌏 EARTH（地球） <span style="font-size:13px;opacity:0.9;">— 目的を柱に「財産家」を目指す（約40%）</span></div><div class="grid"><a class="card EARTH" href="animal-狼.html"><div class="card-emoji">🐺</div><div class="card-name">狼</div><div class="card-tagline">自分の流儀を大事にする</div><div class="card-stage">胎児</div></a><a class="card EARTH" href="animal-猿.html"><div class="card-emoji">🐵</div><div class="card-name">猿</div><div class="card-tagline">褒められるの大好きなお調子者</div><div class="card-stage">小学生</div></a><a class="card EARTH" href="animal-虎.html"><div class="card-emoji">🐯</div><div class="card-name">虎</div><div class="card-tagline">安定感とバランス感覚のビジネスマン</div><div class="card-stage">部長・社長</div></a><a class="card EARTH" href="animal-コアラ.html"><div class="card-emoji">🐨</div><div class="card-name">コアラ</div><div class="card-tagline">妄想を広げるロマンチスト</div><div class="card-stage">年金</div></a></div></div>
+<div class="group-section"><div class="group-title MOON">🌙 MOON（月） <span style="font-size:13px;opacity:0.9;">— 調和を柱に「人格者」を目指す（約35%）</span></div><div class="grid"><a class="card MOON" href="animal-こじか.html"><div class="card-emoji">🦌</div><div class="card-name">こじか</div><div class="card-tagline">友だち作りが大得意な愛されキャラ</div><div class="card-stage">赤ちゃん</div></a><a class="card MOON" href="animal-黒ひょう.html"><div class="card-emoji">🐈‍⬛</div><div class="card-name">黒ひょう</div><div class="card-tagline">グループのリーダー的存在</div><div class="card-stage">反抗期</div></a><a class="card MOON" href="animal-たぬき.html"><div class="card-emoji">🦝</div><div class="card-name">たぬき</div><div class="card-tagline">安心感を与える存在</div><div class="card-stage">会長</div></a><a class="card MOON" href="animal-ひつじ.html"><div class="card-emoji">🐑</div><div class="card-name">ひつじ</div><div class="card-tagline">責任感と面倒見</div><div class="card-stage">棺桶</div></a></div></div>
+
+  <footer>たまごの相談部屋 / 個性心理学 学習資料</footer>
+</div>
+</body>
+</html>
