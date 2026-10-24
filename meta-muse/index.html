@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta Museはメール・予約・買い物を代わりに進めるAIで、送る前と買う前には必ず人の承認を待つ</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+:root {
+  --ink: #212529;
+  --muted: #64707C;
+  --line: #DEE2E6;
+  --paper: #FFFFFF;
+  --paper-dim: #F6F8FA;
+  --accent: #2563EB;
+  --ok: #16A34A;
+  --warn: #D97706;
+  --err: #DC2626;
+  --font-sans: 'IBM Plex Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --text-micro: 11.5px;
+  --text-caption: 12.5px;
+  --text-data: 13.5px;
+  --text-body: 15px;
+  --text-section: 18px;
+  --text-title: 21px;
+  --text-display: 27px;
+  --text-stat: 34px;
+  --leading-body: 1.9;
+  --leading-data: 1.6;
+  --leading-heading: 1.45;
+  --measure: 760px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-sans); font-weight: 400;
+  font-size: var(--text-body); line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  
+  overflow-wrap: anywhere;
+}
+.wrap { max-width: var(--measure); margin: 0 auto; padding: 40px 24px 0; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+
+.kicker {
+  font-family: var(--font-mono); font-size: var(--text-caption); font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+h1.display {
+  font-size: var(--text-display); font-weight: 700; line-height: var(--leading-heading);
+  letter-spacing: 0.01em; margin: 10px 0 16px;
+}
+.conclusion.lead {
+  background: var(--paper-dim); border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0; padding: 14px 20px;
+  font-weight: 500; margin-bottom: 28px;
+}
+
+.lead-copy { margin: 4px 0 18px; font-size: var(--text-body); line-height: var(--leading-body); color: var(--ink); }
+.conclusion-label { font-weight: 700; margin-bottom: 4px; }
+.conclusion ul { margin: 0; padding-left: 1.3em; }
+.conclusion li { margin: 2px 0; }
+
+figure.hero { margin: 0 0 8px; }
+figure.hero img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; display: block; }
+
+ol.steps { list-style: none; counter-reset: step; margin: 8px 0 4px; }
+.steps li { counter-increment: step; position: relative; padding: 0 0 14px 40px; }
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 1px;
+  width: 26px; height: 26px; border: 1.5px solid var(--ink); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-weight: 600; font-size: var(--text-data);
+}
+
+section.block { padding: 32px 0 4px; border-top: 1px solid var(--line); margin-top: 28px; }
+h2.title { font-size: var(--text-title); font-weight: 700; line-height: var(--leading-heading); letter-spacing: 0.01em; margin: 0 0 6px; border-left: 3px solid var(--accent); padding-left: 10px; }
+.table-lead { margin: 18px 0 6px; }
+.table-lead-heading { font-size: var(--text-title); font-weight: 700; line-height: var(--leading-heading); margin: 0 0 6px; border-left: 3px solid var(--accent); padding-left: 10px; }
+.table-lead p { margin: 0; font-size: var(--text-body); line-height: var(--leading-body); }
+p { margin-bottom: 14px; }
+figure.diagram { margin: 8px 0 4px; }
+figure.diagram svg { width: 100%; height: auto; display: block; }
+figure.diagram img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; display: block; }
+
+figure.diagram svg[data-fit="mobile"], figure.hero img[data-fit="mobile"] { max-width: 460px; margin-left: auto; margin-right: auto; }
+.caption { font-size: var(--text-caption); color: var(--muted); line-height: var(--leading-data); margin: 6px 0 18px; }
+
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0 8px; }
+@media (max-width: 680px) { .kpis { grid-template-columns: 1fr; } }
+.kpi { border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
+.kpi .n { font-family: var(--font-mono); font-weight: 600; font-size: var(--text-stat); line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kpi .label { font-size: var(--text-data); font-weight: 500; color: var(--ink); }
+.kpi .delta { font-size: var(--text-caption); color: var(--muted); }
+
+.callout { display: flex; gap: 10px; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 12px 16px; font-size: var(--text-data); line-height: var(--leading-data); margin: 26px 0 6px; }
+.callout b { font-weight: 700; }
+
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.data { width: 100%; border-collapse: collapse; font-size: var(--text-data); line-height: var(--leading-data); margin: 8px 0 4px; overflow-wrap: normal; }
+.data th {
+  text-align: left; font-size: var(--text-micro); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); font-weight: 700; border-bottom: 1.5px solid var(--ink); padding: 8px 10px;
+}
+.data td { border-bottom: 1px solid var(--line); padding: 9px 10px; }
+.data .num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.data th.num { text-align: right; }
+
+details.fold { border: 1px solid var(--line); border-radius: 10px; margin: 10px 0; }
+.fold summary {
+  padding: 12px 18px; font-weight: 500; font-size: var(--text-body); cursor: pointer;
+  list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+}
+.fold summary::-webkit-details-marker { display: none; }
+.fold summary .size { font-family: var(--font-mono); font-size: var(--text-caption); color: var(--muted); }
+.fold summary::after { content: "開く +"; font-size: var(--text-caption); color: var(--accent); flex-shrink: 0; }
+.fold[open] summary::after { content: "閉じる −"; }
+.fold .body { padding: 0 18px 14px; font-size: var(--text-data); line-height: var(--leading-data); }
+
+footer.end { border-top: 1px solid var(--line); margin-top: 40px; padding: 20px 0 48px; }
+.meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: var(--text-caption); color: var(--muted); }
+
+@media print {
+  
+  @page { margin: 12mm 11mm 14mm; }
+  a { color: var(--ink); text-decoration: none; }
+  
+  details.fold::details-content { content-visibility: visible; display: block; }
+  .fold summary::after, .fold[open] summary::after { content: ""; }
+  
+  figure.diagram, figure.hero, .conclusion.lead, ol.steps, .kpis, .callout, footer.end { break-inside: avoid; page-break-inside: avoid; }
+  .data tr { break-inside: avoid; }
+  
+  .table-scroll { overflow: visible; }
+  
+  .wrap { padding-top: 24px; }
+  p { margin-bottom: 11px; }
+  section.block { padding: 16px 0 2px; margin-top: 12px; }
+  .conclusion.lead { margin-bottom: 20px; }
+  .steps li { padding-bottom: 10px; }
+  figure.hero { margin-bottom: 4px; }
+  .caption { margin: 5px 0 12px; }
+  .data td { padding: 4px 10px; }
+  .data th { padding: 6px 10px; }
+  .fold summary { padding: 9px 18px; }
+  .fold .body { padding-bottom: 5px; }
+  footer.end { margin-top: 8px; padding: 4px 0 0; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">2026年10月23日に日本で始まったAIの入門</div>
+    <h1 class="display">Meta Museはメール・予約・買い物を代わりに進めるAIで、送る前と買う前には必ず人の承認を待つ</h1>
+    <div class="conclusion lead"><div class="conclusion-label">結論</div><ul><li>Meta Museは、質問に答えるだけでなく、メール送信・予約・ネット購入まで代わりに進めるAIだ。</li><li>送信や購入の前には必ず確認画面が出て、<b>人が承認するまで実行しない</b>。</li><li>無料プランで始められ、使える量は週ごとの上限で決まる。</li><li>個人情報をつなぐ前に「AIモデルの改善に協力」をOFFにし、<b>つなぐアプリは必要なものだけ</b>にする。</li></ul></div>
+  </header>
+
+    <figure class="hero">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgNTYwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ik1ldGEgTXVzZeOBjOOBguOBquOBn+OBruS+nemgvOOCkuWPl+OBkeOBpuWwgueUqOOBruODkeOCveOCs+ODs+OBp+S9nOalreOBl+OAgeaJv+iqjeOBrumWoumWgOOCkumAmuOBo+OBpuOBi+OCieODoeODvOODq+mAgeS/oeODu+S6iOe0hOODu+iyt+OBhOeJqeOCkuWun+ihjOOBmeOCi+a1geOCjCI+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1NjAiIGZpbGw9IiNGRkZGRkYiLz4KICA8ZyBmb250LWZhbWlseT0iSUJNIFBsZXggU2FucyBKUCwgSGlyYWdpbm8gS2FrdSBHb3RoaWMgUHJvTiwgc2Fucy1zZXJpZiI+CiAgICA8dGV4dCB4PSIyMDAiIHk9IjM2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMjEyNTI5Ij5NZXRhIE11c2Ug44GM5Luj44KP44KK44Gr6YCy44KB44KLPC90ZXh0PgoKICAgIDxyZWN0IHg9IjEwMCIgeT0iNjAiIHdpZHRoPSIyMDAiIGhlaWdodD0iNTYiIHJ4PSIxMiIgZmlsbD0iI0Y2RjhGQSIgc3Ryb2tlPSIjMjEyNTI5IiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDx0ZXh0IHg9IjIwMCIgeT0iOTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTkiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMyMTI1MjkiPuOBguOBquOBn+OBjOmgvOOCgDwvdGV4dD4KCiAgICA8ZyBzdHJva2U9IiMyNTYzRUIiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj48cGF0aCBkPSJNMjAwIDEyMCBMMjAwIDE1MCIvPjxwYXRoIGQ9Ik0xOTAgMTQwIEwyMDAgMTUyIEwyMTAgMTQwIi8+PC9nPgoKICAgIDxyZWN0IHg9IjYwIiB5PSIxNTgiIHdpZHRoPSIyODAiIGhlaWdodD0iODQiIHJ4PSIxNCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMjU2M0VCIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjIwMCIgeT0iMTkyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjIxIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMjU2M0VCIj5NZXRhIE11c2U8L3RleHQ+CiAgICA8dGV4dCB4PSIyMDAiIHk9IjIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxNyIgZmlsbD0iIzIxMjUyOSI+5bCC55So44Gu44OR44K944Kz44Oz44Gn6Kq/44G544Gm5LiL5pu444GNPC90ZXh0PgoKICAgIDxnIHN0cm9rZT0iIzI1NjNFQiIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxwYXRoIGQ9Ik0yMDAgMjQ2IEwyMDAgMjc2Ii8+PHBhdGggZD0iTTE5MCAyNjYgTDIwMCAyNzggTDIxMCAyNjYiLz48L2c+CgogICAgPHJlY3QgeD0iMjAiIHk9IjI4NCIgd2lkdGg9IjM2MCIgaGVpZ2h0PSI3NiIgcng9IjEwIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiNEOTc3MDYiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWRhc2hhcnJheT0iMTAgNiIvPgogICAgPHRleHQgeD0iMjAwIiB5PSIzMTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjEiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNEOTc3MDYiPuaJv+iqjeOBrumWoumWgDwvdGV4dD4KICAgIDx0ZXh0IHg9IjIwMCIgeT0iMzQ0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE3IiBmaWxsPSIjMjEyNTI5Ij7jgYLjgarjgZ/jgYzlhoXlrrnjgpLoqq3jgpPjgafmirzjgZnjgb7jgafmraLjgb7jgos8L3RleHQ+CgogICAgPGcgc3Ryb2tlPSIjMjU2M0VCIiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+CiAgICAgIDxwYXRoIGQ9Ik0yMDAgMzY0IEwyMDAgMzkyIi8+CiAgICAgIDxwYXRoIGQ9Ik0yMDAgMzgwIEw3NiAzODAgTDc2IDQwNCIvPjxwYXRoIGQ9Ik02NiAzOTQgTDc2IDQwNiBMODYgMzk0Ii8+CiAgICAgIDxwYXRoIGQ9Ik0yMDAgMzgwIEwzMjQgMzgwIEwzMjQgNDA0Ii8+PHBhdGggZD0iTTMxNCAzOTQgTDMyNCA0MDYgTDMzNCAzOTQiLz4KICAgICAgPHBhdGggZD0iTTE5MCAzOTQgTDIwMCA0MDYgTDIxMCAzOTQiLz4KICAgIDwvZz4KCiAgICA8cmVjdCB4PSIxNiIgeT0iNDEyIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjU2IiByeD0iMTAiIGZpbGw9IiNGNkY4RkEiIHN0cm9rZT0iIzI1NjNFQiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSI3NiIgeT0iNDQ3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMjEyNTI5Ij7jg6Hjg7zjg6vpgIHkv6E8L3RleHQ+CiAgICA8cmVjdCB4PSIxNDAiIHk9IjQxMiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1NiIgcng9IjEwIiBmaWxsPSIjRjZGOEZBIiBzdHJva2U9IiMyNTYzRUIiIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHRleHQgeD0iMjAwIiB5PSI0NDciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMyMTI1MjkiPuS6iOe0hDwvdGV4dD4KICAgIDxyZWN0IHg9IjI2NCIgeT0iNDEyIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjU2IiByeD0iMTAiIGZpbGw9IiNGNkY4RkEiIHN0cm9rZT0iIzI1NjNFQiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSIzMjQiIHk9IjQ0NyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxOCIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzIxMjUyOSI+6LK344GE54mpPC90ZXh0PgoKICAgIDxyZWN0IHg9IjIwIiB5PSI0OTIiIHdpZHRoPSIzNjAiIGhlaWdodD0iNTIiIHJ4PSIxMCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjNjQ3MDdDIiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDx0ZXh0IHg9IjIwMCIgeT0iNTI1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNjQ3MDdDIj7jg5Hjgrnjg6/jg7zjg4njgajjgqvjg7zjg4nmg4XloLHjga9NdXNl44Gr6KaL44GI44Gq44GEPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==" alt="あなたが頼むとMeta Museが専用のパソコンで調べて下書きし、承認の関門を通ってからメール送信・予約・買い物を実行する。パスワードとカード情報はMuseに見えない。" data-fit="mobile">
+    <figcaption class="caption">図 1 — Museは頼まれた作業を進めるが、送信・予約・買い物の手前であなたの承認を待つ。</figcaption>
+  </figure>
+
+  <ol class="steps" aria-label="3 行解説">
+    <li>Museは利用者ごとの<b>専用のパソコン</b>で動き、アプリを閉じても作業を続ける。</li>
+    <li><b>トークン</b>はMuseが使った計算量の単位で、文章が長い・作業が多いほど増える。週ごとに上限があり、週に1回リセットされる。</li>
+    <li>外部の文章に仕込まれた命令にAIが従ってしまう攻撃は<b>未解決</b>で、作品の質にも当たり外れがある。</li>
+  </ol>
+
+
+
+  <section class="block">
+    <h2 class="title">質問に答えるAIとの違い</h2>
+    <p>ChatGPTのようなAIは、質問に文章で答えたところで止まる。Meta Museはその先まで進み、メール送信・旅行予約・フォーム入力・ネット購入を実行する。</p>
+    <p>日本では2026年10月23日に始まり、北米以外では初めての地域になった。iPhoneとAndroidのアプリ、ブラウザのmuse.aiで使え、Metaアカウントと18歳以上が条件になる。</p>
+    <p>日本で今つながるのは、Gmail・Googleカレンダー・Instagramと、支払いのStripe、ネットショップのShopifyだ。旅行予約サイトのTrip.com・Agoda・Klookにもつながる。フリマアプリのメルカリ、家計簿アプリのマネーフォワード ME、チケットぴあは準備中になっている。</p>
+    <figure class="diagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 292" role="img" aria-label="質問に答えるAIは答えの文章で止まり、Meta Museは頼む・調べる・実行するまで進む比較図" data-fit="mobile"><g font-family="IBM Plex Sans JP, Hiragino Kaku Gothic ProN, sans-serif"><text x="10" y="26" text-anchor="start" font-size="19" font-weight="700" fill="var(--muted)">質問に答えるAI（ChatGPTなど）</text><rect x="10" y="40" width="150" height="52" rx="10" fill="var(--paper-dim)" stroke="var(--line)" stroke-width="2"/><text x="85" y="72" text-anchor="middle" font-size="17" fill="var(--ink)">質問する</text><g stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M166 66 L206 66"/><path d="M197 58 L207 66 L197 74"/></g><rect x="214" y="40" width="176" height="52" rx="10" fill="var(--paper-dim)" stroke="var(--line)" stroke-width="2"/><text x="302" y="72" text-anchor="middle" font-size="17" fill="var(--ink)">答えの文章</text><text x="390" y="116" text-anchor="end" font-size="15" fill="var(--muted)">ここで止まる</text><text x="10" y="160" text-anchor="start" font-size="19" font-weight="700" fill="var(--accent)">Meta Muse</text><rect x="10" y="174" width="110" height="52" rx="10" fill="var(--paper-dim)" stroke="var(--accent)" stroke-width="2"/><text x="65" y="206" text-anchor="middle" font-size="17" fill="var(--ink)">頼む</text><g stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M124 200 L146 200"/><path d="M137 192 L147 200 L137 208"/></g><rect x="150" y="174" width="110" height="52" rx="10" fill="var(--paper-dim)" stroke="var(--accent)" stroke-width="2"/><text x="205" y="206" text-anchor="middle" font-size="17" fill="var(--ink)">調べる</text><g stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M264 200 L276 200"/><path d="M267 192 L277 200 L267 208"/></g><rect x="280" y="174" width="110" height="52" rx="10" fill="var(--paper)" stroke="var(--accent)" stroke-width="3"/><text x="335" y="206" text-anchor="middle" font-size="17" font-weight="700" fill="var(--accent)">実行する</text><text x="390" y="254" text-anchor="end" font-size="15" fill="var(--ink)">メール送信・予約・ネット購入</text><text x="390" y="278" text-anchor="end" font-size="15" fill="var(--muted)">送信と購入は承認のあと</text></g></svg>
+      <figcaption class="caption">図 2 — 答えるAIは文章で止まり、Museは実行まで進む。実行の手前に承認がある点を見る。</figcaption>
+    </figure>
+  </section>
+
+  <section class="block">
+    <h2 class="title">専用のパソコンと承認の関門</h2>
+    <p>Museは、利用者1人ごとにクラウド上に用意された専用のパソコンの中で動く。そのため、アプリを閉じても作業は続き、判断が要るときは通知で呼ばれる。</p>
+    <p>メール送信や購入のように取り消しにくい操作の前には、必ず確認画面が出る。人が承認するまで、Museは先へ進めない。</p>
+    <p>パスワードや支払い情報は別の保管庫に入り、Museには代わりの合言葉だけが渡される。支払いでは、Stripe社の「Link」が1回限りのカード番号を発行する。</p>
+    <figure class="diagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 474" role="img" aria-label="あなたが頼む、Museが調べて下書き、確認画面で承認、Museが実行の4段階と、パスワードとカード情報を別に置く保管庫" data-fit="mobile"><g font-family="IBM Plex Sans JP, Hiragino Kaku Gothic ProN, sans-serif"><rect x="50" y="10" width="340" height="64" rx="10" fill="var(--paper-dim)" stroke="var(--ink)" stroke-width="2"/><circle cx="24" cy="42" r="15" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/><text x="24" y="48" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ink)">1</text><text x="66" y="38" text-anchor="start" font-size="18" font-weight="700" fill="var(--ink)">あなたが頼む</text><text x="66" y="62" text-anchor="start" font-size="15" fill="var(--muted)">例: 旅館を比べて予約して</text><g stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M220 76 L220 98"/><path d="M212 89 L220 99 L228 89"/></g><rect x="50" y="106" width="340" height="64" rx="10" fill="var(--paper)" stroke="var(--accent)" stroke-width="2"/><circle cx="24" cy="138" r="15" fill="var(--paper)" stroke="var(--accent)" stroke-width="2"/><text x="24" y="144" text-anchor="middle" font-size="17" font-weight="700" fill="var(--accent)">2</text><text x="66" y="134" text-anchor="start" font-size="18" font-weight="700" fill="var(--accent)">Museが調べて下書き</text><text x="66" y="158" text-anchor="start" font-size="15" fill="var(--muted)">専用のパソコンで作業</text><g stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M220 172 L220 194"/><path d="M212 185 L220 195 L228 185"/></g><rect x="50" y="202" width="340" height="64" rx="10" fill="var(--paper)" stroke="var(--warn)" stroke-width="3" stroke-dasharray="8 5"/><circle cx="24" cy="234" r="15" fill="var(--paper)" stroke="var(--warn)" stroke-width="2"/><text x="24" y="240" text-anchor="middle" font-size="17" font-weight="700" fill="var(--warn)">3</text><text x="66" y="230" text-anchor="start" font-size="18" font-weight="700" fill="var(--warn)">確認画面で承認</text><text x="66" y="254" text-anchor="start" font-size="15" fill="var(--muted)">あなたが読んで押す</text><g stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M220 268 L220 290"/><path d="M212 281 L220 291 L228 281"/></g><rect x="50" y="298" width="340" height="64" rx="10" fill="var(--paper)" stroke="var(--accent)" stroke-width="2"/><circle cx="24" cy="330" r="15" fill="var(--paper)" stroke="var(--accent)" stroke-width="2"/><text x="24" y="336" text-anchor="middle" font-size="17" font-weight="700" fill="var(--accent)">4</text><text x="66" y="326" text-anchor="start" font-size="18" font-weight="700" fill="var(--accent)">送信・予約・購入</text><text x="66" y="350" text-anchor="start" font-size="15" fill="var(--muted)">Museが実行する</text><rect x="50" y="400" width="340" height="64" rx="10" fill="var(--paper-dim)" stroke="var(--muted)" stroke-width="2" stroke-dasharray="4 4"/><text x="66" y="428" text-anchor="start" font-size="17" font-weight="700" fill="var(--ink)">保管庫: パスワード・カード情報</text><text x="66" y="452" text-anchor="start" font-size="15" fill="var(--muted)">Museには代わりの合言葉だけが渡る</text></g></svg>
+      <figcaption class="caption">図 3 — 3番目の確認画面で、作業はあなたの手に戻る。保管庫の中身はMuseに見えない。</figcaption>
+    </figure>
+  </section>
+
+  <section class="block">
+    <h2 class="title">トークンの週上限と3つのプラン</h2>
+    <p>プランは無料・Power・Maximumの3つだ。Powerは月20ドルで週5億トークン、Maximumは月100ドルで週30億トークンまで使える。</p>
+    <p>無料プランの上限はMetaの公式ヘルプでは公表されていない。週1億トークンと広く報じられているが、未確認の数字だ。日本の価格もPowerが月2,799円、Maximumが月13,990円と報じられている段階になる。</p>
+    <p>多く減るのは、長い作業・大きなファイル・ブラウザの操作・ファイル作成・アプリ連携だ。ある記者はゲーム3本やアニメ50本を作らせても、無料枠の約11%で収まった。上限に達したら、上位プランにするか週1回のリセットを待つ。</p>
+    <figure class="diagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 360" role="img" aria-label="週あたりのトークン上限。無料は公式非公開で報道では1億、Powerは5億、Maximumは30億を同じ目盛りで比べた棒グラフ" data-fit="mobile"><g font-family="IBM Plex Sans JP, Hiragino Kaku Gothic ProN, sans-serif"><text x="10" y="22" text-anchor="start" font-size="19" font-weight="700" fill="var(--ink)">週あたりのトークン上限</text><text x="20" y="68" text-anchor="start" font-size="17" font-weight="700" fill="var(--ink)">無料</text><rect x="20" y="78" width="12" height="26" rx="4" fill="var(--accent)" opacity="0.35" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><text x="40.0" y="98" text-anchor="start" font-size="17" font-weight="700" fill="var(--ink)">1億（報道・未確認）</text><text x="20" y="126" text-anchor="start" font-size="15" fill="var(--muted)">Meta公式は非公開</text><text x="20" y="166" text-anchor="start" font-size="17" font-weight="700" fill="var(--ink)">Power（月20ドル）</text><rect x="20" y="176" width="60" height="26" rx="4" fill="var(--accent)" opacity="0.6"/><text x="88.0" y="196" text-anchor="start" font-size="17" font-weight="700" fill="var(--ink)">5億</text><text x="20" y="224" text-anchor="start" font-size="15" fill="var(--muted)">Meta公式ヘルプ</text><text x="20" y="264" text-anchor="start" font-size="17" font-weight="700" fill="var(--ink)">Maximum（月100ドル）</text><rect x="20" y="274" width="360" height="26" rx="4" fill="var(--accent)" opacity="1"/><text x="372.0" y="294" text-anchor="end" font-size="17" font-weight="700" fill="var(--paper)">30億</text><text x="20" y="322" text-anchor="start" font-size="15" fill="var(--muted)">Meta公式ヘルプ</text><text x="20" y="348" text-anchor="start" font-size="15" fill="var(--muted)">同じ目盛りで比較（単位: トークン）</text></g></svg>
+      <figcaption class="caption">図 4 — 有料2プランの上限を同じ目盛りで比べる。無料の1億は報道値で、公式の数字ではない。</figcaption>
+    </figure>
+  </section>
+
+  <section class="block">
+    <h2 class="title">まだ解決していない弱点</h2>
+    <p>外部の文章に仕込まれた命令にAIが従ってしまう攻撃は、業界全体で未解決だとMeta自身が書いている。公開直後には、Museの内部の指示文が抜き出されたという報告もあった。</p>
+    <p>作品の質は当たり外れがある。記者が作らせたゲームは「とても悪い出来」、アニメは「意味をなさない」と評価された。Metaも、Museは間違えることがあると明記している。</p>
+    <p>日本では高度な音声モード、リアルタイムアバター、Muse専用メールアドレスがまだ使えない。また1人用なので、複数人で1つのMuseに仕事を振ることはできない。</p>
+    <figure class="diagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 394" role="img" aria-label="外部の文章に隠れた命令をMuseが読み、意図しない送信や購入をしかけ、確認画面で人が止めるまでの4段階" data-fit="mobile"><g font-family="IBM Plex Sans JP, Hiragino Kaku Gothic ProN, sans-serif"><rect x="50" y="10" width="340" height="64" rx="10" fill="var(--paper)" stroke="var(--err)" stroke-width="2"/><circle cx="24" cy="42" r="15" fill="var(--paper)" stroke="var(--err)" stroke-width="2"/><text x="24" y="48" text-anchor="middle" font-size="17" font-weight="700" fill="var(--err)">1</text><text x="66" y="38" text-anchor="start" font-size="18" font-weight="700" fill="var(--err)">メールやWebページ</text><text x="66" y="62" text-anchor="start" font-size="15" fill="var(--muted)">隠れた命令が入っている</text><g stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M220 76 L220 98"/><path d="M212 89 L220 99 L228 89"/></g><rect x="50" y="106" width="340" height="64" rx="10" fill="var(--paper)" stroke="var(--accent)" stroke-width="2"/><circle cx="24" cy="138" r="15" fill="var(--paper)" stroke="var(--accent)" stroke-width="2"/><text x="24" y="144" text-anchor="middle" font-size="17" font-weight="700" fill="var(--accent)">2</text><text x="66" y="134" text-anchor="start" font-size="18" font-weight="700" fill="var(--accent)">Museが読む</text><text x="66" y="158" text-anchor="start" font-size="15" fill="var(--muted)">命令と依頼を取り違える</text><g stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M220 172 L220 194"/><path d="M212 185 L220 195 L228 185"/></g><rect x="50" y="202" width="340" height="64" rx="10" fill="var(--paper)" stroke="var(--err)" stroke-width="2"/><circle cx="24" cy="234" r="15" fill="var(--paper)" stroke="var(--err)" stroke-width="2"/><text x="24" y="240" text-anchor="middle" font-size="17" font-weight="700" fill="var(--err)">3</text><text x="66" y="230" text-anchor="start" font-size="18" font-weight="700" fill="var(--err)">勝手な送信や購入</text><text x="66" y="254" text-anchor="start" font-size="15" fill="var(--muted)">命令どおりに動こうとする</text><g stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M220 268 L220 290"/><path d="M212 281 L220 291 L228 281"/></g><rect x="50" y="298" width="340" height="64" rx="10" fill="var(--paper)" stroke="var(--ok)" stroke-width="2"/><circle cx="24" cy="330" r="15" fill="var(--paper)" stroke="var(--ok)" stroke-width="2"/><text x="24" y="336" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ok)">4</text><text x="66" y="326" text-anchor="start" font-size="18" font-weight="700" fill="var(--ok)">確認画面であなたが止める</text><text x="66" y="350" text-anchor="start" font-size="15" fill="var(--muted)">内容を読んでから承認する</text></g></svg>
+      <figcaption class="caption">図 5 — 隠れた命令に引っぱられても、送信と購入は確認画面で止められる。</figcaption>
+    </figure>
+  </section>
+
+  <section class="block">
+    <h2 class="title">向く使い方と向かない使い方</h2>
+    <p>日本向けの記事とレビューは、失敗しても困らない作業から始めるよう勧めている。予定の整理・下調べ・比較が当てはまる。</p>
+    <p>設定の「AIモデルの改善に協力」は、初期状態でONになっている。Gmailをつなぐ前にOFFにし、メールは最初は読み取りだけにしておく。</p>
+    <p>使っていると、銀行口座・受信箱全体・パスポートや免許の期限の接続を何度も勧められる。必要なもの以外は断ってよい。</p>
+    <figure class="diagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 436" role="img" aria-label="向く使い方4つと向かない使い方4つの対比" data-fit="mobile"><g font-family="IBM Plex Sans JP, Hiragino Kaku Gothic ProN, sans-serif"><rect x="10" y="10" width="380" height="200" rx="10" fill="var(--paper)" stroke="var(--ok)" stroke-width="2"/><text x="26" y="42" text-anchor="start" font-size="19" font-weight="700" fill="var(--ok)">向く使い方</text><circle cx="32" cy="76" r="5" fill="var(--ok)"/><text x="46" y="82" text-anchor="start" font-size="17" fill="var(--ink)">予定の整理</text><circle cx="32" cy="112" r="5" fill="var(--ok)"/><text x="46" y="118" text-anchor="start" font-size="17" fill="var(--ink)">旅行や買い物の下調べと比較</text><circle cx="32" cy="148" r="5" fill="var(--ok)"/><text x="46" y="154" text-anchor="start" font-size="17" fill="var(--ink)">メールは読み取りだけで始める</text><circle cx="32" cy="184" r="5" fill="var(--ok)"/><text x="46" y="190" text-anchor="start" font-size="17" fill="var(--ink)">無料で始め、使用量を週1回見る</text><rect x="10" y="226" width="380" height="200" rx="10" fill="var(--paper)" stroke="var(--warn)" stroke-width="2"/><text x="26" y="258" text-anchor="start" font-size="19" font-weight="700" fill="var(--warn)">向かない使い方</text><circle cx="32" cy="292" r="5" fill="var(--warn)"/><text x="46" y="298" text-anchor="start" font-size="17" fill="var(--ink)">取り消せない手続きを確認なしで</text><circle cx="32" cy="328" r="5" fill="var(--warn)"/><text x="46" y="334" text-anchor="start" font-size="17" fill="var(--ink)">パスポートや銀行口座を預ける</text><circle cx="32" cy="364" r="5" fill="var(--warn)"/><text x="46" y="370" text-anchor="start" font-size="17" fill="var(--ink)">正確さが要る作品づくり</text><circle cx="32" cy="400" r="5" fill="var(--warn)"/><text x="46" y="406" text-anchor="start" font-size="17" fill="var(--ink)">複数人での共有</text></g></svg>
+      <figcaption class="caption">図 6 — 上の4つから試し、下の4つは任せない。</figcaption>
+    </figure>
+  </section>
+
+  <div class="callout"><span><b>始める前に:</b> <b>「AIモデルの改善に協力」をOFF</b>にし、つなぐアプリは必要なものだけにする。使用量は「設定 → 一般 → 使用量」で週1回見て、足りなくなってからPowerを考える。</span></div>
+
+  <details class="fold">
+    <summary>数字と出所の一覧（8項目の表）<span class="size">1 段落 + 表 8 行</span></summary>
+    <div class="body">
+      <p>本文の数字の出所をまとめた。報道とある数字は、Metaの公式ページでは確認できていない。</p>
+      <div class="table-scroll">
+      <table class="data">
+        <thead><tr><th>項目</th><th>内容</th><th>出所</th></tr></thead>
+        <tbody>
+          <tr><td>Powerの週上限</td><td>5億トークン・月20ドル</td><td>Meta公式ヘルプ</td></tr>
+          <tr><td>Maximumの週上限</td><td>30億トークン・月100ドル</td><td>Meta公式ヘルプ</td></tr>
+          <tr><td>無料の週上限</td><td>非公開。報道では1億トークン</td><td>報道（未確認）</td></tr>
+          <tr><td>日本の価格</td><td>Power 月2,799円・Maximum 月13,990円</td><td>報道（未確認）</td></tr>
+          <tr><td>招待コード</td><td>登録後48時間以内に入力で双方に10億トークン・1コード30回・期限なし</td><td>日本向け記事の報道</td></tr>
+          <tr><td>無料枠の実測</td><td>ゲーム3本・音楽50通り・アニメ50本などで約11%</td><td>Gizmodo</td></tr>
+          <tr><td>作業1件の消費</td><td>複数ページ閲覧とフォーム入力で数万〜数百万トークン</td><td>eesel推定</td></tr>
+          <tr><td>使用量の確認</td><td>設定 → 一般 → 使用量（使った割合と次のリセット日）</td><td>Meta公式ヘルプ</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </details>
+
+  <footer class="end">
+    <div class="meta"><span>作成 2026-10-24</span><span>出所 about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/ ・ meta.com/help/subscriptions/1021145227643680/ ・ research.meta.ai（安全ブログ）・ smartscope.blog ・ leaph.co.jp ・ gizmodo.com ・ techcrunch.com ・ neoteo.com ・ eesel.ai ・ toolcolumn.com</span></div>
+  </footer>
+
+</div>
+</body>
+</html>
